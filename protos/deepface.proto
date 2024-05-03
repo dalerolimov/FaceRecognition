@@ -1,0 +1,23 @@
+// deepface.proto
+
+syntax = "proto3";
+
+package deepface;
+
+service FaceService {
+  rpc FindSimilarFaces (FindSimilarRequest) returns (FindSimilarResponse) {}
+}
+
+message FindSimilarRequest {
+  string image_path = 1;
+  string db_path = 2;
+}
+
+message SimilarFace {
+  string image_path = 1;
+  float similarity = 2;
+}
+
+message FindSimilarResponse {
+  string file_path = 1;
+}

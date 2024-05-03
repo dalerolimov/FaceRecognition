@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  adminer:
+    container_name: adminer_data_explorer
+    image: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+
+  db:
+    container_name: database
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: FaceRecognitionAPI
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: postgres
+
+  facerecognitionapi:
+    container_name: facerecognitionapi
+    image: facerecognitionapi
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Development"
+      - "ASPNETCORE_URLS=http://+:1915;http://+:1905"
+      - "ConnectionStrings__DefaultConnection=User ID=postgres;Password=123456;Host=db;Port=5432;Database=FaceRecognitionAPI;Pooling=true;"
+    ports:
+      - 8080:1915
+      - 8081:1905
+    depends_on:
+      - db
+
+  
