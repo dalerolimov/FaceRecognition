@@ -48,9 +48,9 @@ export default function ModalCreateUser() {
         dispatch(modalCreateClose(), clears());
         refresh();
       })
-      .catch((err) => {
-        toast.error(`Неверный данние: ${err.message}`, { position: 'top-right' });
-      })
+      // .catch((err) => {
+      //   // toast.error(`Неверный данние: ${err.message}`, { position: 'top-right' });
+      // })
       .finally(() => {
         setDisabled(false);
       });
@@ -59,18 +59,13 @@ export default function ModalCreateUser() {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedName(file.name);
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64String = reader.result;
-      var dateOfBirths = new Date(dateOfBirth).toUTCString();
-      const newFormData = new FormData();
-      newFormData.append('file', base64String);
-      newFormData.append('FirstName', firstName);
-      newFormData.append('LastName', LastName);
-      newFormData.append('DateOfBirth', dateOfBirths);
-      setFormData(newFormData);
-    };
-    reader.readAsDataURL(file);
+    var dateOfBirths = new Date(dateOfBirth).toUTCString();
+    const newFormData = new FormData();
+    newFormData.append('file', file);
+    newFormData.append('FirstName', firstName);
+    newFormData.append('LastName', LastName);
+    newFormData.append('DateOfBirth', dateOfBirths);
+    setFormData(newFormData);
   };
 
   return (

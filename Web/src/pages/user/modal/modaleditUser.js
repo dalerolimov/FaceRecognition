@@ -68,18 +68,13 @@ export default function ModalEditUser({ editUser }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedName(file.name);
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64String = reader.result;
-      const newFormData = new FormData();
-      newFormData.append('file', base64String);
-      newFormData.append('FirstName', firstName);
-      newFormData.append('LastName', LastName);
-      newFormData.append('DateOfBirth', dateOfBirth);
-      newFormData.append('Id', userId);
-      setFormData(newFormData);
-    };
-    reader.readAsDataURL(file);
+    const newFormData = new FormData();
+    newFormData.append('file', file);
+    newFormData.append('FirstName', firstName);
+    newFormData.append('LastName', LastName);
+    newFormData.append('DateOfBirth', dateOfBirth);
+    newFormData.append('Id', userId);
+    setFormData(newFormData);
   };
   if (editUser) {
     return (
