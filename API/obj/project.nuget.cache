@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KGHkShKof6EZB93dAw9sDGBeM+uaho/R4Czs8Iec50Bfj11odZ6cP6pwRJdB2rev8ogHHHMW3yLKe4pgimByMg==",
+  "dgSpecHash": "zErAX4D24sCvHjqCnaZPeNQ8h7fZXLbp9tmJ4ejx2OKTWaDd47id5dDtyU7FjwtnGE+YQZVkvVYfX+xihYKhYg==",
   "success": true,
-  "projectFilePath": "C:\\project\\vue\\FaceRecognition\\API\\FaceRecognitionAPI.csproj",
+  "projectFilePath": "C:\\project\\diplon\\FaceRecognition\\API\\FaceRecognitionAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Khusrav\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Khusrav\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",

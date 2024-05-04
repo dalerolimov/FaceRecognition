@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\project\\vue\\FaceRecognition\\API\\FaceRecognitionAPI.csproj": {}
+    "C:\\project\\diplon\\FaceRecognition\\API\\FaceRecognitionAPI.csproj": {}
   },
   "projects": {
-    "C:\\project\\vue\\FaceRecognition\\API\\FaceRecognitionAPI.csproj": {
+    "C:\\project\\diplon\\FaceRecognition\\API\\FaceRecognitionAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\project\\vue\\FaceRecognition\\API\\FaceRecognitionAPI.csproj",
+        "projectUniqueName": "C:\\project\\diplon\\FaceRecognition\\API\\FaceRecognitionAPI.csproj",
         "projectName": "FaceRecognitionAPI",
-        "projectPath": "C:\\project\\vue\\FaceRecognition\\API\\FaceRecognitionAPI.csproj",
+        "projectPath": "C:\\project\\diplon\\FaceRecognition\\API\\FaceRecognitionAPI.csproj",
         "packagesPath": "C:\\Users\\Khusrav\\.nuget\\packages\\",
-        "outputPath": "C:\\project\\vue\\FaceRecognition\\API\\obj\\",
+        "outputPath": "C:\\project\\diplon\\FaceRecognition\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Khusrav\\AppData\\Roaming\\NuGet\\NuGet.Config",
