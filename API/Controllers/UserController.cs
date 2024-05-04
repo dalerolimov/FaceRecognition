@@ -22,7 +22,7 @@ public class UserController : ControllerBase
     public Task<UserResponse> GetById(long id) => _userService.GetById(id);
 
     [HttpPost]
-    public Task Create(CreateUserRequestDto request, IFormFile file)
+    public Task Create([FromForm] CreateUserRequestDto request, [FromForm] IFormFile file)
     {
         request.Image = new MemoryStream();
         var openReadStream = file.OpenReadStream();
@@ -31,10 +31,13 @@ public class UserController : ControllerBase
     }
 
     [HttpPut]
-    public Task<UserResponse> Update(UpdateUserRequest request, IFormFile file)
+    public Task<UserResponse> Update([FromForm] UpdateUserRequest request, [FromForm] IFormFile? file)
     {
-        request.Image = new MemoryStream();
-        file.OpenReadStream().CopyToAsync(request.Image);
+        if (file is not null)
+        {
+            request.Image = new MemoryStream();
+            file.OpenReadStream().CopyToAsync(request.Image);
+        }
         return _userService.Update(request);
     }
 

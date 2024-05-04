@@ -48,7 +48,7 @@ public class UserService : IUserService
         var fileName = "";
         var user = await _userRepository.GetById(request.Id);
         // TODO: Delete previous image if file is not null
-        fileName = await SaveImage(request.Image);
+        fileName = request.Image is not null ? await SaveImage(request.Image) : "";
 
         if (user is null) throw new Exception("User does not exist");
         user.FirstName = request.FirstName;
@@ -70,12 +70,14 @@ public class UserService : IUserService
 
     private async Task<string> SaveImage(MemoryStream filestream)
     {
-        if (!Directory.Exists("Pictures"))
-            Directory.CreateDirectory("Pictures");
-        var fileName = $"{Guid.NewGuid().ToString()}.jpg";
-        await using var file = new FileStream(
-            $"Pictures{Path.DirectorySeparatorChar}{fileName}", FileMode.Create);
-        await file.WriteAsync(filestream.ToArray());
-        return fileName;
+        var fileBytes = filestream.ToArray();
+        return Convert.ToBase64String(fileBytes);
+        // if (!Directory.Exists("Pictures"))
+        //     Directory.CreateDirectory("Pictures");
+        // var fileName = $"{Guid.NewGuid().ToString()}.jpg";
+        // await using var file = new FileStream(
+        //     $"Pictures{Path.DirectorySeparatorChar}{fileName}", FileMode.Create);
+        // await file.WriteAsync(filestream.ToArray());
+        // return fileName;
     }
 }

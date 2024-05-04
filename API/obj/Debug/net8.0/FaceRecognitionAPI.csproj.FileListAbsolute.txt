@@ -113,3 +113,4 @@ C:\repos\FaceRecognition\API\bin\Debug\net8.0\Google.Protobuf.dll
 C:\repos\FaceRecognition\API\bin\Debug\net8.0\Grpc.Core.Api.dll
 C:\repos\FaceRecognition\API\bin\Debug\net8.0\Grpc.Net.Client.dll
 C:\repos\FaceRecognition\API\bin\Debug\net8.0\Grpc.Net.Common.dll
+C:\repos\FaceRecognition\API\obj\Debug\net8.0\FaceRecognitionAPI.sourcelink.json

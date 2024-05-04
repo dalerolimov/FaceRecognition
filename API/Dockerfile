@@ -6,7 +6,7 @@ EXPOSE 1905
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["FaceRecognitionAPI/FaceRecognitionAPI.csproj", "FaceRecognitionAPI/"]
+COPY ["FaceRecognitionAPI.csproj", "FaceRecognitionAPI/"]
 RUN dotnet restore "FaceRecognitionAPI/FaceRecognitionAPI.csproj"
 COPY . .
 WORKDIR "/src/FaceRecognitionAPI"
