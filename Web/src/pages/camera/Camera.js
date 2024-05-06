@@ -3,13 +3,21 @@ import Logo from '../../components/Logo/index';
 import Box from '@mui/material/Box';
 import DataOpenPhoto from './dataOpenPhoto';
 import { useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Camera() {
-  const [dataPeople, setDataPeople] = useState([{ name: 'Khusrav' }]);
+  const [dataPeople, setDataPeople] = useState([]);
+  const [isActiveLoading, setisActiveLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const dataimg = (imageData) => {
-    setDataPeople([{ name: 'Khusrav' }]);
-    console.log(imageData);
+    setLoading(false);
+    setTimeout(() => {
+      setisActiveLoading(true);
+      setDataPeople([{ name: 'Khusrav' }]);
+      console.log(imageData);
+      setLoading(true);
+    }, 3000);
   };
   return (
     <>
@@ -22,7 +30,23 @@ function Camera() {
         }}
       >
         <CameraWrapper dataimg={dataimg} />
-        <DataOpenPhoto dataPeople={dataPeople} />
+        {isLoading === true ? (
+          isActiveLoading === true ? (
+            dataPeople.length > 0 ? (
+              <DataOpenPhoto dataPeople={dataPeople} />
+            ) : (
+              ''
+            )
+          ) : (
+            ''
+          )
+        ) : (
+          <Box
+          // sx={{ display: 'flex' }}
+          >
+            <CircularProgress />
+          </Box>
+        )}
       </Box>
     </>
   );

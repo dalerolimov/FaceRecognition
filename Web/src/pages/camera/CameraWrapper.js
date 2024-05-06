@@ -50,6 +50,13 @@ function CameraWrapper({ dataimg }) {
 
   const snapPhoto = () => {
     const canvas = canvasRef.current;
+
+    // canvas.toBlob((blob) => {
+    //   const img = new Image();
+    //   img.src = URL.createObjectURL(blob);
+    //   dataimg(img);
+    // }, 'image/jpeg');
+
     const imageData = canvas.toDataURL();
     dataimg(imageData);
   };

@@ -3,8 +3,8 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-function DataOpenPhoto(props) {
-  return props.dataPeople.map((el, i) => (
+function DataOpenPhoto({ dataPeople }) {
+  return dataPeople.map((el, i) => (
     <Box
       height={'100%'}
       width={'50%'}
