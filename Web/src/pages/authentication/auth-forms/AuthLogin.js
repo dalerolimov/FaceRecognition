@@ -50,7 +50,7 @@ const AuthLogin = () => {
           password: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).password : ''
         }}
         validationSchema={Yup.object().shape({
-          login: Yup.string().min(6).required('Логин'),
+          login: Yup.string().max(30).required('Логин'),
           password: Yup.string().max(20).required('Требуется ввести пароль')
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {

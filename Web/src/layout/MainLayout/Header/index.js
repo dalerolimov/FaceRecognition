@@ -1,39 +1,52 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import { useTheme } from '@mui/material/styles';
 import { AppBar, IconButton, Toolbar, useMediaQuery } from '@mui/material';
-
+import Box from '@mui/material/Box';
 
 import AppBarStyled from './AppBarStyled';
 import HeaderContent from './HeaderContent';
+import { modalCreateOpen } from '../../../store/reducers/modal/modalUser';
 
-
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-
-// ==============================|| MAIN LAYOUT - HEADER ||============================== //
+import { MenuFoldOutlined, MenuUnfoldOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 const Header = ({ open, handleDrawerToggle }) => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
   const iconBackColor = 'grey.100';
   const iconBackColorOpen = 'grey.200';
 
-  
   const mainHeader = (
-    <Toolbar  className='header'>
-      <IconButton
-        disableRipple
-        aria-label="open drawer"
-        onClick={handleDrawerToggle}
-        edge="start"
-        color="secondary"
-        sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
-      >
-        {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </IconButton>
-      <HeaderContent />
-    </Toolbar>
+    <>
+      <Toolbar className="header">
+        <Box>
+          <IconButton
+            disableRipple
+            aria-label="open drawer"
+            onClick={handleDrawerToggle}
+            edge="start"
+            color="secondary"
+            sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
+          >
+            {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </IconButton>
+          <IconButton
+            sx={{
+              ml: 1
+            }}
+            onClick={() => dispatch(modalCreateOpen())}
+          >
+            <PlusSquareOutlined />
+          </IconButton>
+        </Box>
+        <Box>
+          <HeaderContent />
+        </Box>
+      </Toolbar>
+    </>
   );
 
   const appBar = {

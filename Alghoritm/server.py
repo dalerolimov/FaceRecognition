@@ -35,7 +35,7 @@ def save_base64_as_file(base64_string, filename):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_FaceServiceServicer_to_server(FaceServiceServicer(), server)
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port('[::]:5051')
     server.start()
     server.wait_for_termination()
 

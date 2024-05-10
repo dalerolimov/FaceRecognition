@@ -8,8 +8,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["FaceRecognitionAPI.csproj", "FaceRecognitionAPI/"]
 RUN dotnet restore "FaceRecognitionAPI/FaceRecognitionAPI.csproj"
-COPY . .
+
 WORKDIR "/src/FaceRecognitionAPI"
+COPY . .
+
 RUN dotnet build "FaceRecognitionAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish

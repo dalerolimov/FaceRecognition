@@ -11,7 +11,7 @@ public class FaceRecognitionService : IFaceRecognitionService
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-    private readonly GrpcChannel _channel = GrpcChannel.ForAddress("http://localhost:50051");
+    private readonly GrpcChannel _channel = GrpcChannel.ForAddress("http://localhost:5051");
     private readonly FaceService.FaceServiceClient _client;
 
     public FaceRecognitionService(IUserRepository userRepository, IMapper mapper)

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  modalCreateUser: true,
+  modalCreateUser: false,
   modalEditUser: false
 };
 

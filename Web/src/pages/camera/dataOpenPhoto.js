@@ -1,12 +1,13 @@
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 function DataOpenPhoto({ dataPeople }) {
-  return dataPeople.map((el, i) => (
+  const moment = require('moment');
+  return dataPeople?.map((el, i) => (
     <Box
-      height={'100%'}
+      height={'500px'}
       width={'50%'}
       marginRight={'3%'}
       sx={{
@@ -18,8 +19,13 @@ function DataOpenPhoto({ dataPeople }) {
       key={i}
     >
       <Stack spacing={1}>
-        <Avatar alt="Remy Sharp" src={require('../../assets/photo/frontend.png')} sx={{ width: 150, height: 150 }} />
-        <TextField label="ФИО" multiline maxRows={4} variant="standard" />
+        <Avatar alt="Remy Sharp" src={require(`${el?.imagePath}`)} sx={{ width: 150, height: 150 }} />
+        <Typography variant="h3" component="h2">
+          {`${el?.lastName} ${el?.firstName}`}
+        </Typography>
+        <Typography variant="h3" component="h2">
+          {moment(el?.dateOfBirth).format('DD/MM/YYYY HH:mm:ss')}
+        </Typography>
       </Stack>
     </Box>
   ));

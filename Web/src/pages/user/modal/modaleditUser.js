@@ -8,6 +8,7 @@ import { Button, Grid, InputLabel, OutlinedInput, Stack, Typography, InputBase }
 import AnimateButton from 'components/@extended/AnimateButton';
 import CloudUpload from '@mui/icons-material/CloudUpload';
 import api from '../../../data/createUser/index';
+import { toast } from 'react-toastify';
 
 const style = {
   position: 'absolute',
@@ -32,12 +33,15 @@ export default function ModalEditUser({ editUser }) {
   const [disabledUser, setDisabled] = React.useState(false);
   const dispatch = useDispatch();
 
+  const moment = require('moment');
+
   React.useEffect(() => {
     if (editUser) {
       setUserId(editUser.id);
       setFirstName(editUser.firstName);
       setLastName(editUser.lastName);
-      setDateOfBirth(editUser.dateOfBirth);
+      setDateOfBirth(moment(editUser.dateOfBirth).format('YYYY-MM-DD hh:mm:ss'));
+      console.log(editUser.dateOfBirth);
     }
   }, [editUser]);
 
@@ -52,13 +56,14 @@ export default function ModalEditUser({ editUser }) {
     setDisabled(true);
     api
       .editUser(formData)
-      .then((res) => {
-        toast.error(`Данные пользователь изменении: ${res.data.message}`, { position: 'top-right' });
+      .then(() => {
+        console.log('efwef');
+        toast.success('Данные пользователь изменении', { position: 'top-right' });
         dispatch(modalEditClose(), clears());
         refresh();
       })
-      .catch((err) => {
-        toast.error(`Неверный данние: ${err.message}`, { position: 'top-right' });
+      .catch(() => {
+        toast.error('Неверный данние', { position: 'top-right' });
       })
       .finally(() => {
         setDisabled(false);
@@ -68,11 +73,12 @@ export default function ModalEditUser({ editUser }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedName(file.name);
+    var dateOfBirths = new Date(dateOfBirth).toUTCString();
     const newFormData = new FormData();
     newFormData.append('file', file);
     newFormData.append('FirstName', firstName);
     newFormData.append('LastName', LastName);
-    newFormData.append('DateOfBirth', dateOfBirth);
+    newFormData.append('DateOfBirth', dateOfBirths);
     newFormData.append('Id', userId);
     setFormData(newFormData);
   };
@@ -89,89 +95,87 @@ export default function ModalEditUser({ editUser }) {
               sm={{ color: 'black' }}
               style={{ position: 'absolute', top: 10, right: 10, cursor: 'pointer' }}
             />
-            <form onSubmit={createUserApi}>
-              <Box sx={{ marginTop: '50px' }}>
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <Stack spacing={1}>
-                      <InputLabel htmlFor="text-login">Имя</InputLabel>
-                      <OutlinedInput
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="Введите имя пользователя"
-                        fullWidth
-                      />
-                    </Stack>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Stack spacing={1}>
-                      <InputLabel htmlFor="text-login">Фамилия</InputLabel>
-                      <OutlinedInput
-                        type="text"
-                        value={LastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        placeholder="Введите фамилия пользователя"
-                        fullWidth
-                      />
-                    </Stack>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Stack spacing={1}>
-                      <InputLabel htmlFor="login">Дата рождения</InputLabel>
-                      <InputBase
-                        type="text"
-                        value={dateOfBirth}
-                        onChange={(e) => setDateOfBirth(e.target.value)}
-                        fullWidth
-                        sx={{ padding: 1, borderRadius: '10px', border: '1px solid silver ' }}
-                      />
-                    </Stack>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <div className="parent">
-                      <div className="file-upload">
-                        <CloudUpload />
-                        <h3>{selectedName || 'Нажмите на поле для загрузки'}</h3>
-                        <p>Максимальный размер файла 10 Мб</p>
-                        <input type="file" onChange={handleFileChange} />
-                      </div>
+            <Box sx={{ marginTop: '50px' }}>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="text-login">Имя</InputLabel>
+                    <OutlinedInput
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="Введите имя пользователя"
+                      fullWidth
+                    />
+                  </Stack>
+                </Grid>
+                <Grid item xs={12}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="text-login">Фамилия</InputLabel>
+                    <OutlinedInput
+                      type="text"
+                      value={LastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Введите фамилия пользователя"
+                      fullWidth
+                    />
+                  </Stack>
+                </Grid>
+                <Grid item xs={12}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="login">Дата рождения</InputLabel>
+                    <InputBase
+                      type="datetime-local"
+                      value={dateOfBirth}
+                      onChange={(e) => setDateOfBirth(e.target.value)}
+                      fullWidth
+                      sx={{ padding: 1, borderRadius: '10px', border: '1px solid silver ' }}
+                    />
+                  </Stack>
+                </Grid>
+                <Grid item xs={12}>
+                  <div className="parent">
+                    <div className="file-upload">
+                      <CloudUpload />
+                      <h3>{selectedName || 'Нажмите на поле для загрузки'}</h3>
+                      <p>Максимальный размер файла 10 Мб</p>
+                      <input type="file" onChange={handleFileChange} />
                     </div>
+                  </div>
+                </Grid>
+                <Grid container rowSpacing={1} sx={{ justifyContent: 'space-between', marginLeft: '23px', marginTop: '30px' }}>
+                  <Grid item xs={5}>
+                    <AnimateButton>
+                      <Button
+                        fullWidth
+                        size="large"
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => dispatch(modalEditClose(), clears())}
+                      >
+                        Отмена
+                      </Button>
+                    </AnimateButton>
                   </Grid>
-                  <Grid container rowSpacing={1} sx={{ justifyContent: 'space-between', marginLeft: '23px', marginTop: '30px' }}>
-                    <Grid item xs={5}>
-                      <AnimateButton>
-                        <Button
-                          fullWidth
-                          size="large"
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                          onClick={() => dispatch(modalEditClose(), clears())}
-                        >
-                          Отмена
-                        </Button>
-                      </AnimateButton>
-                    </Grid>
-                    <Grid item xs={5}>
-                      <AnimateButton>
-                        <Button
-                          fullWidth
-                          size="large"
-                          disabled={disabledUser}
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                          onClick={() => createUserApi()}
-                        >
-                          Создать
-                        </Button>
-                      </AnimateButton>
-                    </Grid>
+                  <Grid item xs={5}>
+                    <AnimateButton>
+                      <Button
+                        fullWidth
+                        size="large"
+                        disabled={disabledUser}
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => createUserApi()}
+                      >
+                        Создать
+                      </Button>
+                    </AnimateButton>
                   </Grid>
                 </Grid>
-              </Box>
-            </form>
+              </Grid>
+            </Box>
           </Box>
         </Modal>
       </div>
