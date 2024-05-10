@@ -8,8 +8,8 @@ namespace FaceRecognitionAPI.Controllers;
 public class FaceRecognitionController(IFaceRecognitionService faceRecognitionService) : ControllerBase
 {
     [HttpPost]
-    public async Task<UserResponse?> Recognize([FromBody] string imageString)
+    public async Task<UserResponse?> Recognize([FromForm] string image)
     {
-        return await faceRecognitionService.Recognize(imageString);
+        return await faceRecognitionService.Recognize(image);
     }
 }

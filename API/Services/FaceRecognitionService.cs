@@ -34,13 +34,21 @@ public class FaceRecognitionService : IFaceRecognitionService
         var users = await _userRepository.GetAll();
         foreach (var item in users)
         {
-            var response = await _client.FindSimilarFacesAsync(new FindSimilarRequest
+            try
             {
-                ImagePath = image,
-                DbPath = item.ImagePath
-            }).ResponseAsync;
-            if (!string.IsNullOrEmpty(response.FilePath))
-                return _mapper.Map<UserResponse>(item);
+                var response = await _client.FindSimilarFacesAsync(new FindSimilarRequest
+                {
+                    ImagePath = image,
+                    DbPath = item.ImagePath
+                }).ResponseAsync;
+                if (!string.IsNullOrEmpty(response.FilePath))
+                    return _mapper.Map<UserResponse>(item);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         return null;
