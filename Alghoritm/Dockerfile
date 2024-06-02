@@ -3,7 +3,7 @@ FROM python:3.12
 # Create app directory
 WORKDIR /app
 
-RUN pip install deepface grpcio protobuf
+RUN pip install deepface grpcio protobuf tensorrt
 
 
 # Bundle app source
