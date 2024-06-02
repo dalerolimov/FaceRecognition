@@ -8,7 +8,6 @@ import { Button, Grid, InputLabel, OutlinedInput, Stack, Typography, InputBase }
 import AnimateButton from 'components/@extended/AnimateButton';
 import CloudUpload from '@mui/icons-material/CloudUpload';
 import api from '../../../data/createUser/index';
-import { toast } from 'react-toastify';
 
 const style = {
   position: 'absolute',
@@ -22,7 +21,7 @@ const style = {
   p: 4
 };
 
-export default function ModalCreateUser({ refresh }) {
+export default function ModalCreateUser() {
   const { modalCreateUser } = useSelector((state) => state.modalUser);
   const [formData, setFormData] = React.useState(new FormData());
   const [firstName, setFirstName] = React.useState('');
@@ -40,18 +39,18 @@ export default function ModalCreateUser({ refresh }) {
   };
 
   function createUserApi() {
-    setDisabled(true);
     console.log(formData);
+    setDisabled(true);
     api
       .createUser(formData)
-      .then(() => {
+      .then((res) => {
+        toast.error(`Создан пользователь: ${res.data.message}`, { position: 'top-right' });
         dispatch(modalCreateClose(), clears());
         refresh();
-        toast.success('Создан пользователь', { position: 'top-right' });
       })
-      .catch(() => {
-        toast.error('Неверный данние', { position: 'top-right' });
-      })
+      // .catch((err) => {
+      //   // toast.error(`Неверный данние: ${err.message}`, { position: 'top-right' });
+      // })
       .finally(() => {
         setDisabled(false);
       });
@@ -60,12 +59,12 @@ export default function ModalCreateUser({ refresh }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedName(file.name);
-    var DateOfBirth = new Date(dateOfBirth).toUTCString();
+    var dateOfBirths = new Date(dateOfBirth).toUTCString();
     const newFormData = new FormData();
     newFormData.append('file', file);
     newFormData.append('FirstName', firstName);
     newFormData.append('LastName', LastName);
-    newFormData.append('DateOfBirth', DateOfBirth);
+    newFormData.append('DateOfBirth', dateOfBirths);
     setFormData(newFormData);
   };
 

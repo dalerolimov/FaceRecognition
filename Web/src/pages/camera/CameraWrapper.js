@@ -1,16 +1,14 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import IconButton from '@mui/material/IconButton';
-import { useSelector, useDispatch } from 'react-redux';
-import { disabledButton } from '../../store/reducers/camera/index';
+// import Container from '@mui/material/Container';
 
 function CameraWrapper({ dataimg }) {
-  const { is_active } = useSelector((store) => store.camera);
+  const [is_active, setIs_active] = useState(false);
   const canvasRef = useRef(null);
   const videoWidth = 1000;
   const videoHeight = 500;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -19,7 +17,11 @@ function CameraWrapper({ dataimg }) {
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
-        toast.success('Доступ к камере разрешено !', { position: 'top-right' });
+        if (!is_active) {
+          toast.success('Доступ к камере разрешено !', { position: 'top-right' });
+          setIs_active(true);
+        }
+
         const video = document.createElement('video');
         video.srcObject = stream;
         video.onloadedmetadata = () => {
@@ -30,7 +32,10 @@ function CameraWrapper({ dataimg }) {
         };
       })
       .catch((err) => {
-        toast.error(`Доступ к камере не разрешен: ${err}`, { position: 'top-right' });
+        if (!is_active) {
+          toast.error(`Доступ к камере не разрешен: ${err}`, { position: 'top-right' });
+          setIs_active(true);
+        }
       });
 
     return () => {
@@ -45,7 +50,6 @@ function CameraWrapper({ dataimg }) {
 
   const snapPhoto = () => {
     const canvas = canvasRef.current;
-    dispatch(disabledButton());
 
     // canvas.toBlob((blob) => {
     //   const img = new Image();
@@ -53,8 +57,7 @@ function CameraWrapper({ dataimg }) {
     //   dataimg(img);
     // }, 'image/jpeg');
 
-    const imageData = canvas.toDataURL('image/jpeg');
-    console.log(imageData);
+    const imageData = canvas.toDataURL();
     dataimg(imageData);
   };
 
@@ -62,7 +65,7 @@ function CameraWrapper({ dataimg }) {
     <>
       <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginRight: '3%', marginLeft: '3%' }}>
         <canvas ref={canvasRef} width={videoWidth} height={videoHeight} className="borderCamera"></canvas>
-        <IconButton disabled={is_active} size="large" onClick={snapPhoto} style={{ position: 'absolute', bottom: '0' }}>
+        <IconButton size="large" onClick={snapPhoto} style={{ position: 'absolute', bottom: '0' }}>
           <CameraAltIcon />
         </IconButton>
       </div>

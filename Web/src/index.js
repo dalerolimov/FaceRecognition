@@ -18,7 +18,7 @@ root.render(
     <ReduxProvider store={store}>
       <BrowserRouter>
         <App />
-        <ToastContainer position="top-left" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover limit={1} />
+        <ToastContainer position="top-left" autoClose={500} hideProgressBar={false} closeOnClick pauseOnHover limit={1} />
       </BrowserRouter>
     </ReduxProvider>
   </StrictMode>
