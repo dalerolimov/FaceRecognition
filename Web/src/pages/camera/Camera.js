@@ -27,9 +27,6 @@ function Camera() {
       })
       .catch(() => {
         toast.error('Сделайте фото заново', { position: 'top-right' });
-        console.log('ewfwef');
-        console.log('ewfwef');
-        console.log('wqfwef');
       })
       .finally(() => {
         setLoading(true);
