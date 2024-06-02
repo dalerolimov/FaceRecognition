@@ -19,7 +19,7 @@ public class UserService : IUserService
     
     public async Task CreateUser(CreateUserRequestDto request)
     {
-        var fileName = SaveImage(request.Image);
+        var fileName = await SaveImage(request.Image);
         var user = new User
         {
             FirstName = request.FirstName,
@@ -48,7 +48,7 @@ public class UserService : IUserService
         var fileName = "";
         var user = await _userRepository.GetById(request.Id);
         // TODO: Delete previous image if file is not null
-        fileName = request.Image is not null ? SaveImage(request.Image) : "";
+        fileName = request.Image is not null ? await SaveImage(request.Image) : "";
 
         if (user is null) throw new Exception("User does not exist");
         user.FirstName = request.FirstName;
@@ -68,7 +68,7 @@ public class UserService : IUserService
         return true;
     }
 
-    private string SaveImage(MemoryStream filestream)
+    private async Task<string> SaveImage(MemoryStream filestream)
     {
         var fileBytes = filestream.ToArray();
         return Convert.ToBase64String(fileBytes);

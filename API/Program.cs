@@ -4,6 +4,7 @@ using FaceRecognitionAPI.Domain.Repositories;
 using FaceRecognitionAPI.Infrastructure.Persistence;
 using FaceRecognitionAPI.Infrastructure.Repositories;
 using FaceRecognitionAPI.Services;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,10 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFaceRecognitionService, FaceRecognitionService>();
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 1073741824; // 1Gb in bytes
+});
 
 
 var app = builder.Build();
