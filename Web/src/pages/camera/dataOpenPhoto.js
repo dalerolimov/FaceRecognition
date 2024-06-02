@@ -26,7 +26,7 @@ function DataOpenPhoto({ dataPeople }) {
             <div className="rounded-[10px] p-[5px] border-[1px] w-[100px] h-[30px] bg-[#FFFF00]">{dataPeople.emotions?.happy}%</div>
           </div>
           <div className="mx-2 text-center">
-            <p className="">Грустный</p>
+            <p>Грустный</p>
             <div className="rounded-[10px] p-[5px] border-[1px] w-[100px] h-[30px] bg-[#0000FF]">{dataPeople.emotions?.sad}%</div>
           </div>
           <div className="mx-2 text-center">
