@@ -1,10 +1,16 @@
 import { ButtonBase } from '@mui/material';
 
+
 import Logo from './Logo';
+
 
 const LogoSection = ({ sx }) => {
   return (
-    <ButtonBase disableRipple sx={sx} className="logo">
+    <ButtonBase
+      disableRipple
+      sx={sx}
+      className="logo"
+    >
       <Logo />
     </ButtonBase>
   );
