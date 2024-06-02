@@ -27,6 +27,7 @@ function Camera() {
       })
       .catch(() => {
         toast.error('Сделайте фото заново', { position: 'top-right' });
+        console.log('ewfwef');
       })
       .finally(() => {
         setLoading(true);
@@ -46,11 +47,7 @@ function Camera() {
         <CameraWrapper dataimg={dataimg} />
         {isLoading === true ? (
           isActiveLoading === true ? (
-            dataPeople.length > 0 ? (
-              <DataOpenPhoto dataPeople={dataPeople} />
-            ) : (
-              ''
-            )
+            <DataOpenPhoto dataPeople={dataPeople} />
           ) : (
             ''
           )
