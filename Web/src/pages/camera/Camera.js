@@ -34,7 +34,7 @@ function Camera() {
           isActiveLoading === true ? (
             <DataOpenPhoto dataPeople={dataPeople} />
           ) : (
-            ''
+            'e'
           )
         ) : (
           <Box
